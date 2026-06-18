@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Update Expense</title>
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+
+            min-height:100vh;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            padding:40px 20px;
+
+            background:
+            linear-gradient(rgba(5,10,25,0.88),
+            rgba(10,15,35,0.92)),
+
+            url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop');
+
+            background-size:cover;
+
+            background-position:center;
+
+            background-attachment:fixed;
+
+            font-family:'Poppins',sans-serif;
+
+            overflow-x:hidden;
+        }
+
+        .form-container{
+
+            width:100%;
+            max-width:550px;
+
+            background:rgba(15,20,35,0.82);
+
+            backdrop-filter:blur(16px);
+
+            border:1px solid rgba(255,255,255,0.08);
+
+            border-radius:28px;
+
+            padding:45px;
+
+            box-shadow:
+            0 15px 40px rgba(0,0,0,0.55),
+            0 0 25px rgba(52,152,219,0.15);
+
+            color:white;
+
+            animation:fadeIn 0.8s ease;
+        }
+
+        @keyframes fadeIn{
+
+            from{
+                opacity:0;
+                transform:translateY(20px);
+            }
+
+            to{
+                opacity:1;
+                transform:translateY(0);
+            }
+        }
+
+        .logo{
+
+            text-align:center;
+
+            font-size:4rem;
+
+            margin-bottom:10px;
+
+            filter:drop-shadow(0 0 15px rgba(255,255,255,0.2));
+        }
+
+        .title{
+
+            text-align:center;
+
+            font-size:2.5rem;
+
+            font-weight:700;
+
+            margin-bottom:8px;
+
+            color:#ffffff;
+
+            letter-spacing:1px;
+        }
+
+        .subtitle{
+
+            text-align:center;
+
+            color:#bfc9d9;
+
+            margin-bottom:35px;
+
+            font-size:1rem;
+        }
+
+        label{
+
+            font-weight:500;
+
+            margin-bottom:10px;
+
+            color:#dfe6f1;
+
+            display:block;
+        }
+
+        .form-group{
+
+            margin-bottom:24px;
+        }
+
+        .form-control{
+
+            height:52px;
+
+            border-radius:16px;
+
+            border:1px solid rgba(255,255,255,0.08);
+
+            background:rgba(255,255,255,0.06);
+
+            color:white;
+
+            padding:12px 18px;
+
+            font-size:1rem;
+
+            transition:0.3s ease;
+        }
+
+        .form-control:focus{
+
+            background:rgba(255,255,255,0.10);
+
+            color:white;
+
+            border:1px solid #4da3ff;
+
+            box-shadow:
+            0 0 0 4px rgba(77,163,255,0.18);
+
+            outline:none;
+        }
+
+        .form-control::placeholder{
+
+            color:#b8bfd1;
+        }
+
+        select option{
+
+            background:#101522;
+
+            color:white;
+        }
+
+        .btn-update{
+
+            width:100%;
+
+            height:55px;
+
+            border:none;
+
+            border-radius:18px;
+
+            background:linear-gradient(135deg,
+            #3498db,
+            #6c5ce7);
+
+            color:white;
+
+            font-size:1.08rem;
+
+            font-weight:600;
+
+            letter-spacing:0.5px;
+
+            transition:0.35s ease;
+
+            margin-top:10px;
+        }
+
+        .btn-update:hover{
+
+            transform:translateY(-3px);
+
+            box-shadow:
+            0 10px 25px rgba(52,152,219,0.35);
+
+            background:linear-gradient(135deg,
+            #2980b9,
+            #5a4fcf);
+        }
+
+        .error{
+
+            color:#ff7675;
+
+            font-size:0.88rem;
+
+            margin-top:6px;
+
+            display:block;
+        }
+
+        .bottom-text{
+
+            text-align:center;
+
+            margin-top:22px;
+
+            color:#cfd8e3;
+
+            font-size:0.95rem;
+        }
+
+        .bottom-text a{
+
+            color:#4da3ff;
+
+            text-decoration:none;
+
+            font-weight:600;
+        }
+
+        .bottom-text a:hover{
+
+            text-decoration:underline;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="form-container">
+
+    <div class="logo">💳</div>
+
+    <h1 class="title">
+        Update Expense
+    </h1>
+
+    <p class="subtitle">
+        Modify and manage your expense details professionally
+    </p>
+
+    <form action="#"
+          th:action="@{/ExpensesTracker/{id}(id=${ExpensesTracker.id})}"
+          th:object="${ExpensesTracker}"
+          method="POST">
+
+        <!-- Description -->
+
+        <div class="form-group">
+
+            <label for="description">
+                Expense Description
+            </label>
+
+            <input class="form-control"
+                   type="text"
+                   th:field="*{description}"
+                   id="description"
+                   placeholder="Enter updated expense description">
+
+            <span class="error"
+                  th:if="${#fields.hasErrors('description')}"
+                  th:errors="*{description}">
+            </span>
+
+        </div>
+
+        <!-- Price -->
+
+        <div class="form-group">
+
+            <label for="price">
+                Expense Amount
+            </label>
+
+            <input class="form-control"
+                   type="number"
+                   th:field="*{price}"
+                   id="price"
+                   placeholder="Enter updated amount">
+
+            <span class="error"
+                  th:if="${#fields.hasErrors('price')}"
+                  th:errors="*{price}">
+            </span>
+
+        </div>
+
+        <!-- Category -->
+
+        <div class="form-group">
+
+            <label for="category">
+                Expense Category
+            </label>
+
+            <select id="category"
+                    th:field="*{category}"
+                    class="form-control">
+
+                <option value="grocery">
+                    Grocery
+                </option>
+
+                <option value="academics">
+                    Academics
+                </option>
+
+                <option value="hobby">
+                    Hobby
+                </option>
+
+                <option value="house_maintenance">
+                    House Maintenance
+                </option>
+
+                <option value="travel">
+                    Travel
+                </option>
+
+                <option value="food">
+                    Food
+                </option>
+
+                <option value="shopping">
+                    Shopping
+                </option>
+
+            </select>
+
+        </div>
+
+        <!-- Hidden Fields -->
+
+        <input type="hidden"
+               th:field="*{createdDate}" />
+
+        <input type="hidden"
+               th:field="*{modifiedDate}" />
+
+        <!-- Update Button -->
+
+        <button class="btn-update"
+                type="submit">
+
+            ✨ Update Expense
+
+        </button>
+
+    </form>
+
+    <div class="bottom-text">
+
+        Return to
+        <a href="/">
+            Dashboard
+        </a>
+
+    </div><!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Update Expense</title>
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet"
+              href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+        <!-- Google Font -->
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+              rel="stylesheet">
+
+        <style>
+
+            *{
+                margin:0;
+                padding:0;
+                box-sizing:border-box;
+            }
+
+            body{
+                min-height:100vh;
+                display:flex;
+                justify-content:center;
+                align-items:center;
+                padding:40px 20px;
+                background:#f5f7fb;
+                font-family:'Inter',sans-serif;
+                color:#111827;
+            }
+
+            /* CARD */
+            .form-container{
+                width:100%;
+                max-width:520px;
+                background:#ffffff;
+                border:1px solid #e5e7eb;
+                border-radius:16px;
+                padding:35px;
+                box-shadow:0 8px 24px rgba(0,0,0,0.06);
+                animation:fadeIn 0.5s ease;
+            }
+
+            @keyframes fadeIn{
+                from{
+                    opacity:0;
+                    transform:translateY(10px);
+                }
+                to{
+                    opacity:1;
+                    transform:translateY(0);
+                }
+            }
+
+            /* HEADER */
+            .logo{
+                text-align:center;
+                font-size:2.5rem;
+                margin-bottom:10px;
+            }
+
+            .title{
+                text-align:center;
+                font-size:1.7rem;
+                font-weight:700;
+                color:#111827;
+            }
+
+            .subtitle{
+                text-align:center;
+                color:#6b7280;
+                margin-bottom:25px;
+                font-size:0.95rem;
+            }
+
+            /* LABEL */
+            label{
+                font-weight:500;
+                color:#374151;
+                margin-bottom:6px;
+                display:block;
+            }
+
+            .form-group{
+                margin-bottom:18px;
+            }
+
+            /* INPUT */
+            .form-control{
+                height:48px;
+                border-radius:10px;
+                border:1px solid #d1d5db;
+                background:#ffffff;
+                color:#111827;
+                padding:10px 14px;
+                font-size:0.95rem;
+                transition:0.2s ease;
+            }
+
+            .form-control:focus{
+                border-color:#2563eb;
+                box-shadow:0 0 0 3px rgba(37,99,235,0.15);
+                outline:none;
+            }
+
+            .form-control::placeholder{
+                color:#9ca3af;
+            }
+
+            select option{
+                background:#fff;
+                color:#111827;
+            }
+
+            /* BUTTON */
+            .btn-update{
+                width:100%;
+                height:50px;
+                border:none;
+                border-radius:10px;
+                background:#2563eb;
+                color:white;
+                font-size:1rem;
+                font-weight:600;
+                transition:0.2s ease;
+                margin-top:10px;
+            }
+
+            .btn-update:hover{
+                background:#1d4ed8;
+                transform:translateY(-1px);
+            }
+
+            /* ERROR */
+            .error{
+                color:#dc2626;
+                font-size:0.85rem;
+                margin-top:5px;
+                display:block;
+            }
+
+            /* FOOTER TEXT */
+            .bottom-text{
+                text-align:center;
+                margin-top:18px;
+                color:#6b7280;
+                font-size:0.9rem;
+            }
+
+            .bottom-text a{
+                color:#2563eb;
+                font-weight:600;
+                text-decoration:none;
+            }
+
+            .bottom-text a:hover{
+                text-decoration:underline;
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+
+    <div class="form-container">
+
+        <div class="logo">💳</div>
+
+        <h1 class="title">Update Expense</h1>
+
+        <p class="subtitle">Edit your expense details</p>
+
+        <form th:action="@{/ExpensesTracker/{id}(id=${ExpensesTracker.id})}"
+              th:object="${ExpensesTracker}"
+              method="POST">
+
+            <!-- Description -->
+            <div class="form-group">
+
+                <label for="description">Expense Description</label>
+
+                <input class="form-control"
+                       type="text"
+                       th:field="*{description}"
+                       id="description"
+                       placeholder="Enter expense description">
+
+                <span class="error"
+                      th:if="${#fields.hasErrors('description')}"
+                      th:errors="*{description}">
+            </span>
+
+            </div>
+
+            <!-- Price -->
+            <div class="form-group">
+
+                <label for="price">Expense Amount</label>
+
+                <input class="form-control"
+                       type="number"
+                       th:field="*{price}"
+                       id="price"
+                       placeholder="Enter amount">
+
+                <span class="error"
+                      th:if="${#fields.hasErrors('price')}"
+                      th:errors="*{price}">
+            </span>
+
+            </div>
+
+            <!-- Category -->
+            <div class="form-group">
+
+                <label for="category">Expense Category</label>
+
+                <select id="category"
+                        th:field="*{category}"
+                        class="form-control">
+
+                    <option value="grocery">Grocery</option>
+                    <option value="academics">Academics</option>
+                    <option value="hobby">Hobby</option>
+                    <option value="house_maintenance">House Maintenance</option>
+                    <option value="travel">Travel</option>
+                    <option value="food">Food</option>
+                    <option value="shopping">Shopping</option>
+
+                </select>
+
+            </div>
+
+            <!-- Hidden Fields -->
+            <input type="hidden" th:field="*{createdDate}" />
+            <input type="hidden" th:field="*{modifiedDate}" />
+
+            <!-- BUTTON -->
+            <button class="btn-update" type="submit">
+                Update Expense
+            </button>
+
+        </form>
+
+        <div class="bottom-text">
+            Return to <a href="/">Dashboard</a>
+        </div>
+
+    </div>
+
+    </body>
+    </html>
+
+</div>
+
+</body>
+
+</html>

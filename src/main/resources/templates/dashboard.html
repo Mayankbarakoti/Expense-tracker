@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <title>Expense Dashboard</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            min-height:100vh;
+            background:#f5f7fb;
+            font-family:'Inter',sans-serif;
+            color:#111827;
+        }
+
+        .main-container{
+            padding-top:60px;
+            padding-bottom:40px;
+        }
+
+        /* HEADER */
+        .logo{
+            text-align:center;
+            font-size:3rem;
+            margin-bottom:10px;
+        }
+
+        .dashboard-title{
+            text-align:center;
+            font-size:2.2rem;
+            font-weight:700;
+            color:#111827;
+            margin-bottom:8px;
+        }
+
+        .dashboard-subtitle{
+            text-align:center;
+            color:#6b7280;
+            font-size:1rem;
+            margin-bottom:40px;
+        }
+
+        /* CARD */
+        .dashboard-card{
+            background:#ffffff;
+            border:1px solid #e5e7eb;
+            border-radius:14px;
+            padding:28px 20px;
+            transition:0.2s ease;
+            box-shadow:0 6px 18px rgba(0,0,0,0.05);
+            height:100%;
+        }
+
+        .dashboard-card:hover{
+            transform:translateY(-3px);
+            box-shadow:0 10px 24px rgba(0,0,0,0.08);
+        }
+
+        /* ICON */
+        .icon{
+            width:55px;
+            height:55px;
+            margin:auto;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            border-radius:12px;
+            font-size:1.6rem;
+            background:#f3f4f6;
+            margin-bottom:15px;
+        }
+
+        .expense-icon{ color:#2563eb; }
+        .average-icon{ color:#10b981; }
+        .category-icon{ color:#f59e0b; }
+
+        /* TEXT */
+        .card-label{
+            text-align:center;
+            font-size:0.95rem;
+            color:#6b7280;
+            font-weight:500;
+            margin-bottom:10px;
+        }
+
+        .card-value{
+            text-align:center;
+            font-size:1.9rem;
+            font-weight:700;
+            color:#111827;
+        }
+
+        .card-description{
+            text-align:center;
+            font-size:0.85rem;
+            color:#9ca3af;
+            margin-top:10px;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:768px){
+
+            .dashboard-title{
+                font-size:1.7rem;
+            }
+
+            .dashboard-card{
+                margin-bottom:15px;
+            }
+
+            .card-value{
+                font-size:1.6rem;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container main-container">
+
+    <div class="logo">📊</div>
+
+    <h1 class="dashboard-title">
+        Expense Dashboard
+    </h1>
+
+    <p class="dashboard-subtitle">
+        Clean insights into your spending behavior
+    </p>
+
+    <div class="row">
+
+        <!-- TOTAL EXPENSE -->
+        <div class="col-lg-4 col-md-6 mb-4">
+
+            <div class="dashboard-card">
+
+                <div class="icon expense-icon">💰</div>
+
+                <div class="card-label">Total Expenses</div>
+
+                <div class="card-value"
+                     th:text="'₹ ' + ${totalPrice}">
+                    ₹0
+                </div>
+
+                <div class="card-description">
+                    Total amount spent overall
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- AVERAGE -->
+        <div class="col-lg-4 col-md-6 mb-4">
+
+            <div class="dashboard-card">
+
+                <div class="icon average-icon">📈</div>
+
+                <div class="card-label">Daily Average</div>
+
+                <div class="card-value"
+                     th:text="'₹ ' + ${averageDailyExpenses}">
+                    ₹0
+                </div>
+
+                <div class="card-description">
+                    Average daily spending
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- CATEGORY -->
+        <div class="col-lg-4 col-md-12 mb-4">
+
+            <div class="dashboard-card">
+
+                <div class="icon category-icon">🏷️</div>
+
+                <div class="card-label">Top Category</div>
+
+                <div class="card-value"
+                     th:text="${mostExpensiveCategory}">
+                    Shopping
+                </div>
+
+                <div class="card-description">
+                    Highest spending category
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

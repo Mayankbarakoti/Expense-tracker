@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Add Expense</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            min-height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            padding:40px;
+            background:#f5f7fb;
+            font-family:'Inter',sans-serif;
+        }
+
+        /* CARD */
+        .form-container{
+            width:100%;
+            max-width:520px;
+            background:#ffffff;
+            border:1px solid #e5e7eb;
+            border-radius:16px;
+            padding:35px;
+            box-shadow:0 8px 24px rgba(0,0,0,0.06);
+        }
+
+        /* HEADER */
+        .logo{
+            width:55px;
+            height:55px;
+            margin:auto;
+            margin-bottom:15px;
+            border-radius:12px;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            background:#2563eb;
+            font-size:1.6rem;
+            color:white;
+        }
+
+        h1{
+            text-align:center;
+            color:#111827;
+            font-size:1.7rem;
+            font-weight:700;
+            margin-bottom:6px;
+        }
+
+        .subtitle{
+            text-align:center;
+            color:#6b7280;
+            font-size:0.95rem;
+            margin-bottom:25px;
+        }
+
+        /* LABEL */
+        label{
+            color:#374151;
+            font-weight:500;
+            margin-bottom:6px;
+            display:block;
+            font-size:0.95rem;
+        }
+
+        .form-group{
+            margin-bottom:18px;
+        }
+
+        /* INPUT */
+        .form-control{
+            height:48px;
+            border-radius:10px;
+            border:1px solid #d1d5db;
+            background:#ffffff;
+            color:#111827;
+            padding:10px 14px;
+            font-size:0.95rem;
+            transition:0.2s ease;
+        }
+
+        .form-control:focus{
+            border-color:#2563eb;
+            box-shadow:0 0 0 3px rgba(37,99,235,0.15);
+            outline:none;
+        }
+
+        .form-control::placeholder{
+            color:#9ca3af;
+        }
+
+        select option{
+            background:#ffffff;
+            color:#111827;
+        }
+
+        /* BUTTON */
+        .btn-submit{
+            width:100%;
+            height:50px;
+            border:none;
+            border-radius:10px;
+            background:#2563eb;
+            color:white;
+            font-weight:600;
+            font-size:1rem;
+            transition:0.2s ease;
+            margin-top:10px;
+        }
+
+        .btn-submit:hover{
+            background:#1d4ed8;
+            transform:translateY(-1px);
+        }
+
+        /* ERROR */
+        .error{
+            color:#dc2626;
+            font-size:0.85rem;
+            margin-top:5px;
+            display:block;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:600px){
+            .form-container{
+                padding:25px 18px;
+            }
+
+            h1{
+                font-size:1.5rem;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="form-container">
+
+    <!-- LOGO -->
+    <div class="logo">💳</div>
+
+    <!-- TITLE -->
+    <h1>Add New Expense</h1>
+
+    <p class="subtitle">
+        Track your spending in a clean way
+    </p>
+
+    <!-- FORM -->
+    <form th:action="@{/ExpensesTracker}"
+          th:object="${expensesTrackerItem}"
+          method="POST">
+
+        <!-- DESCRIPTION -->
+        <div class="form-group">
+
+            <label for="description">Expense Description</label>
+
+            <input class="form-control"
+                   type="text"
+                   th:field="*{description}"
+                   id="description"
+                   placeholder="e.g. Grocery shopping">
+
+            <span class="error"
+                  th:if="${#fields.hasErrors('description')}"
+                  th:errors="*{description}">
+            </span>
+
+        </div>
+
+        <!-- PRICE -->
+        <div class="form-group">
+
+            <label for="price">Expense Amount</label>
+
+            <input class="form-control"
+                   type="number"
+                   th:field="*{price}"
+                   id="price"
+                   placeholder="e.g. 500">
+
+        </div>
+
+        <!-- CATEGORY -->
+        <div class="form-group">
+
+            <label for="category">Expense Category</label>
+
+            <select id="category"
+                    th:field="*{category}"
+                    class="form-control">
+
+                <option value="grocery">Grocery</option>
+                <option value="academics">Academics</option>
+                <option value="hobby">Hobby</option>
+                <option value="house_maintenance">House Maintenance</option>
+                <option value="travel">Travel</option>
+                <option value="food">Food</option>
+                <option value="shopping">Shopping</option>
+
+            </select>
+
+        </div>
+
+        <!-- BUTTON -->
+        <button type="submit" class="btn-submit">
+            Add Expense
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+</html>
