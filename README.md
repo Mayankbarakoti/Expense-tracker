@@ -3,7 +3,8 @@
 This is a Java Spring Boot application for tracking expenses. 💰
 ## PreView
 
-![image](https://github.com/Myrausman/ExpTrack/assets/99428378/a2e7a531-3144-43eb-a66e-54172d4a7bdf)
+![image](<img width="1763" height="1294" alt="image" src="https://github.com/user-attachments/assets/9103ddf8-f874-40c7-ae2b-b6625f41573d" />
+)
 
 
 ## Prerequisites
@@ -25,7 +26,8 @@ This is a Java Spring Boot application for tracking expenses. 💰
 
 ## Project Information
 
-This project is done under the course assignment of SCAD (Software Construction and Development).
+This project was developed as part of my MCA 2nd Semester academic work and personal learning in Java Spring Boot development.
+
 
 ## How to Run Locally
 
