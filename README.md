@@ -3,7 +3,7 @@
 This is a Java Spring Boot application for tracking expenses. 💰
 ## PreView
 
-![image](<img width="1763" height="1294" alt="image" src="https://github.com/user-attachments/assets/9103ddf8-f874-40c7-ae2b-b6625f41573d" />
+![image](<img width="1763" height="1294" alt="Screenshot_18-6-2026_23586_localhost" src="https://github.com/user-attachments/assets/246c9a53-ce2c-4477-9e2e-b7c658bf5216" />
 )
 
 
